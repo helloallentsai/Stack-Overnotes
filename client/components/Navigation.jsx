@@ -28,7 +28,6 @@ const Navigation = ({ decks, handleDeck }) => {
   };
 
   const [file, setFile] = useState(null);
-  console.log(file);
 
   return (
     <Navbar color="light" light expand="md" className="navbar">

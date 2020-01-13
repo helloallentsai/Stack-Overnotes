@@ -45,10 +45,8 @@ const Deck = props => {
 
   return (
     <div>
-      {name === '' ? (
-        <span className="deck-name" style={{ visibility: 'hidden' }}>
-          placeholder
-        </span>
+      {name === 'Welcome' ? (
+        <span className="deck-name">{name}</span>
       ) : (
         <div>
           <span className="deck-name">{name}</span>

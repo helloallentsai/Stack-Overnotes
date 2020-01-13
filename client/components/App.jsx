@@ -6,13 +6,14 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagic } from '@fortawesome/free-solid-svg-icons';
+import { faStackOverflow } from '@fortawesome/free-brands-svg-icons';
 
 const App = () => {
   const [decks, setDecks] = useState([]);
   const [flashcards, setFlashcards] = useState([
     {
       id: 1,
-      front: 'Select a deck!',
+      front: 'select a deck',
       back: ''
     }
   ]);
@@ -43,7 +44,7 @@ const App = () => {
   const [modal, setModal] = useState(true);
   const toggleModal = () => setModal(!modal);
 
-  const [deck, setDeck] = useState({ deck: [], _id: null, name: '' });
+  const [deck, setDeck] = useState({ deck: [], _id: null, name: 'Welcome' });
 
   const [current, setCurrent] = useState(0);
 
@@ -56,7 +57,7 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <Modal isOpen={false} toggle={toggleModal}>
+      <Modal isOpen={modal} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>
           Welcome to Stack<span className="nav-overnotes">Overnotes</span>!
         </ModalHeader>
@@ -82,8 +83,17 @@ const App = () => {
             again, or hit <i className="highlight">R</i>.
           </p>
           <p>
-            Want a <i className="highlight">random background image</i>? Click
-            this magic wand&nbsp;
+            If you need more info on the word, click on the StackOverflow icon{' '}
+            <FontAwesomeIcon
+              className="highlight"
+              size="sm"
+              icon={faStackOverflow}
+            />{' '}
+            and you'll be provided a few links.
+          </p>
+          <p>
+            Finally, want a <i className="highlight">random background image</i>
+            ? Click this magic wand&nbsp;
             <FontAwesomeIcon
               className="wand"
               size="sm"

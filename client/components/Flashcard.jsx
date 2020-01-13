@@ -64,7 +64,7 @@ const Flashcard = props => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
-  if (front === 'Select a deck!') {
+  if (front === 'select a deck') {
     return (
       <div className="p-3 bg-secondary my-2 rounded main">
         <Toast className="flashcard">

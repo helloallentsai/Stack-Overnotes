@@ -92,7 +92,7 @@ html {
   color: #fff;
   /* cursor: pointer; */
   font-size: 26px;
-  font-weight: bold;
+  /* font-weight: bold; */
   background-color: #117579;
   /* text-shadow: 2px 2px 5px black; */
 }
@@ -174,5 +174,6 @@ textarea {
 #stackoverflow-title {
   color: #fff;
   font-size: 15px;
+  font-weight: lighter;
   background-color: #117579;
 }
