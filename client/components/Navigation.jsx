@@ -69,7 +69,8 @@ const Navigation = ({ decks, handleDeck, fetchDecks }) => {
 
         {decks.map((deck, idx) => (
           <NavItem className="deck" key={idx} onClick={() => handleDeck(idx)}>
-            {deck.name} {`(${deck.deck.length})`}
+            {deck.name}{' '}
+            <span style={{ fontSize: '12px' }}>{`(${deck.deck.length})`}</span>
           </NavItem>
         ))}
       </Nav>
