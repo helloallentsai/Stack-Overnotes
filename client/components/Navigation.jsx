@@ -12,22 +12,31 @@ import {
   Form,
   Label,
   Input,
-  Button
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody
 } from 'reactstrap';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
-const Navigation = ({ decks, handleDeck }) => {
+const Navigation = ({ decks, handleDeck, fetchDecks }) => {
   const submitDeck = e => {
     e.preventDefault();
     let data = new FormData();
     data.append('file', file);
-    console.log(data);
 
-    axios.post('/api/deck/', data);
-    // .then(fetchDecks)
+    axios
+      .post('/api/deck/', data)
+      .then(() => fetchDecks())
+      .then(() => toggle());
   };
 
   const [file, setFile] = useState(null);
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
 
   return (
     <Navbar color="light" light expand="md" className="navbar">
@@ -35,33 +44,34 @@ const Navigation = ({ decks, handleDeck }) => {
         Stack<span className="nav-overnotes">Overnotes</span>
       </NavbarBrand>
       <Nav>
-        <NavbarText className="deck-title">decks:</NavbarText>
-        {/* <Form onSubmit={submitDeck}>
-          <Label>Upload CSV</Label>
-          <Input type="file" onChange={e => setFile(e.target.files[0])}></Input>
-          <Button>Submit</Button>
-        </Form> */}
+        <NavbarText className="deck-title">
+          decks
+          <FontAwesomeIcon
+            icon={faPlusCircle}
+            onClick={toggle}
+            className="nav-form nav-form-add"
+          />
+        </NavbarText>
+        <Modal isOpen={modal} toggle={toggle}>
+          <ModalHeader toggle={toggle}>Upload Deck</ModalHeader>
+          <ModalBody>
+            <Form onSubmit={submitDeck} className="nav-form">
+              <Input
+                type="file"
+                onChange={e => setFile(e.target.files[0])}
+              ></Input>
+              <Button className="nav-form float-right" size="sm">
+                Submit
+              </Button>
+            </Form>
+          </ModalBody>
+        </Modal>
+
         {decks.map((deck, idx) => (
           <NavItem className="deck" key={idx} onClick={() => handleDeck(idx)}>
             {deck.name} {`(${deck.deck.length})`}
           </NavItem>
         ))}
-        {/* <UncontrolledDropdown nav>
-          <DropdownToggle nav caret>
-            decks
-          </DropdownToggle>
-          <DropdownMenu right>
-            {decks.map((deck, idx) => (
-              <DropdownItem
-                className="deck"
-                key={idx}
-                onClick={() => handleDeck(idx)}
-              >
-                {deck.name} {`(${deck.deck.length})`}
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        </UncontrolledDropdown> */}
       </Nav>
     </Navbar>
   );

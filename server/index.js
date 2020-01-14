@@ -4,6 +4,7 @@ const db = require('./db/index.js');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ dest: './uploads/' });
+const fs = require('fs');
 
 const app = express();
 
@@ -19,12 +20,18 @@ app.get('/api/deck', (req, res) => {
 });
 
 app.post('/api/deck/', upload.single('file'), (req, res) => {
-  //this route created merely just to seed DB
-
-  // db.create(example);
-
-  console.log(req.file);
-  res.end();
+  fs.readFile(req.file.path, 'utf8', (err, data) => {
+    if (err) throw err;
+    db.create(data)
+      .then(data => {
+        fs.unlink(req.file.path, err => {
+          if (err) throw err;
+          console.log('successfully deleted ' + req.file.path);
+        });
+        return data;
+      })
+      .then(data => res.status(200).send(data));
+  });
 });
 
 app.put('/api/deck/:id', (req, res) => {
@@ -39,6 +46,12 @@ app.put('/api/deck/:id', (req, res) => {
       console.log(err);
       res.status(404).end();
     });
+});
+
+app.del('/api/deck/:id', (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  db.del(id).then(data => res.status(202).send(data));
 });
 
 const port = 3001;

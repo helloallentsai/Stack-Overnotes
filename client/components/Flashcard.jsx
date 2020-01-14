@@ -24,7 +24,8 @@ const Flashcard = props => {
     handleCheck,
     original,
     deck,
-    fetchDecks
+    fetchDecks,
+    handleDeck
   } = props;
 
   let next = Math.floor(Math.random() * total);
@@ -103,7 +104,7 @@ const Flashcard = props => {
       <div className="p-3 bg-secondary my-2 rounded main">
         <Toast className="flashcard">
           <div className="deck-name">
-            <Deck deck={deck} fetchDecks={fetchDecks} />
+            <Deck deck={deck} fetchDecks={fetchDecks} handleDeck={handleDeck} />
           </div>
           <ToastHeader className="front">
             {front}{' '}
@@ -136,8 +137,13 @@ const Flashcard = props => {
         </Collapse>
         <ButtonGroup className="buttons">
           {total > 1 ? (
-            <Button onClick={() => handleView(next)} color="primary">
+            <Button
+              onClick={() => handleView(next)}
+              color="primary"
+              className="hvr-push"
+            >
               <FontAwesomeIcon icon={faPlay} />
+
               <div className="next">next</div>
             </Button>
           ) : (
@@ -153,6 +159,7 @@ const Flashcard = props => {
                 setIsOpen(false);
               }}
               color="success"
+              className="hvr-push"
             >
               <FontAwesomeIcon icon={faCheck} />
               <div className="done">done</div>
@@ -169,8 +176,9 @@ const Flashcard = props => {
               setIsOpen(false);
             }}
             color="danger"
+            className="hvr-push"
           >
-            <FontAwesomeIcon icon={faRedo} />
+            <FontAwesomeIcon icon={faRedo} className="hvr-bounce-in" />
             <div className="restart">restart</div>
           </Button>
         </ButtonGroup>

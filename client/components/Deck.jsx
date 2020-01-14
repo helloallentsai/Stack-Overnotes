@@ -11,11 +11,16 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEdit,
+  faTrashAlt,
+  faCheck,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons';
 
 const Deck = props => {
   const { name, _id, deck } = props.deck;
-  const { fetchDecks } = props;
+  const { fetchDecks, handleDeck } = props;
 
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
@@ -43,6 +48,16 @@ const Deck = props => {
       .then(() => deck.splice(idx, 1));
   };
 
+  const handleDeckDelete = id => {
+    axios
+      .delete(`/api/deck/${id}`)
+      .then(() => fetchDecks())
+      .then(() => handleDeck(-1));
+  };
+
+  const [isDeckDelete, setIsDeckDelete] = useState(false);
+  const toggleDeckDelete = () => setIsDeckDelete(!isDeckDelete);
+
   return (
     <div>
       {name === 'Welcome' ? (
@@ -63,7 +78,36 @@ const Deck = props => {
       )}
 
       <Modal isOpen={modal} toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>{name}</ModalHeader>
+        <ModalHeader toggle={toggleModal}>
+          {name}{' '}
+          <FontAwesomeIcon
+            size="xs"
+            icon={faTrashAlt}
+            onClick={toggleDeckDelete}
+            className="deck-delete deck-delete-btn"
+          />
+          <Collapse isOpen={isDeckDelete}>
+            <span className="deck-delete">Are you sure? </span>
+            <FontAwesomeIcon
+              icon={faCheck}
+              className="delete-check"
+              size="xs"
+              onClick={() => {
+                handleDeckDelete(_id);
+                toggleDeckDelete();
+                toggleModal();
+              }}
+            />
+            <FontAwesomeIcon
+              icon={faTimes}
+              onClick={() => {
+                toggleDeckDelete();
+              }}
+              className="edit-btn delete-cross"
+              size="xs"
+            />
+          </Collapse>
+        </ModalHeader>
         <ModalBody>
           <ol>
             {deck.map((card, idx) => (

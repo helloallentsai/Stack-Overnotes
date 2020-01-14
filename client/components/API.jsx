@@ -4,9 +4,11 @@ import { Toast, ListGroup, ListGroupItem, ToastHeader } from 'reactstrap';
 
 const API = ({ search }) => {
   const [articles, setArticles] = useState([
-    { title: 'test1', link: 'http' },
-    { title: 'test1', link: 'http' },
-    { title: 'test1', link: 'http' }
+    { title: 'loading...', link: 'http' },
+    { title: 'loading...', link: 'http' },
+    { title: 'loading...', link: 'http' },
+    { title: 'loading...', link: 'http' },
+    { title: 'loading...', link: 'http' }
   ]);
 
   useEffect(() => {
@@ -18,7 +20,6 @@ const API = ({ search }) => {
       .then(res => setArticles(res.data.items));
   }, []);
 
-  console.log(articles);
   return (
     <Toast className="flashcard stackoverflow">
       <ToastHeader id="stackoverflow-title">

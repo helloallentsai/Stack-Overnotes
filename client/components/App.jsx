@@ -49,15 +49,27 @@ const App = () => {
   const [current, setCurrent] = useState(0);
 
   const handleDeck = idx => {
-    setFlashcards(decks[idx].deck);
-    setOriginal(decks[idx].deck); //little buggy
-    setDeck(decks[idx]);
+    if (idx === -1) {
+      setFlashcards([
+        {
+          id: 1,
+          front: 'select a deck',
+          back: ''
+        }
+      ]);
+      setOriginal([]);
+      setDeck({ deck: [], _id: null, name: 'Welcome' });
+    } else {
+      setFlashcards(decks[idx].deck);
+      setOriginal(decks[idx].deck);
+      setDeck(decks[idx]);
+    }
     setCurrent(0);
   };
 
   return (
     <React.Fragment>
-      <Modal isOpen={modal} toggle={toggleModal}>
+      <Modal isOpen={false} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>
           Welcome to Stack<span className="nav-overnotes">Overnotes</span>!
         </ModalHeader>
@@ -108,7 +120,11 @@ const App = () => {
           Study hard. Study often. Study well.
         </ModalFooter>
       </Modal>
-      <Navigation decks={decks} handleDeck={handleDeck} />
+      <Navigation
+        decks={decks}
+        handleDeck={handleDeck}
+        fetchDecks={fetchDecks}
+      />
       <div className="container">
         <Flashcard
           key={current}
@@ -120,6 +136,7 @@ const App = () => {
           original={original.length}
           deck={deck}
           fetchDecks={fetchDecks}
+          handleDeck={handleDeck}
         />
       </div>
     </React.Fragment>

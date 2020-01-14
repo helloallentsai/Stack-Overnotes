@@ -20,6 +20,8 @@ const Add = ({ handleAdd, total, toggleAdd }) => {
     setBack('');
   };
 
+  document.onkeydown = e => {};
+
   return (
     <Card>
       <Form onSubmit={handleSubmit} className="new-card">

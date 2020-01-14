@@ -16,8 +16,15 @@ mongoose
   .catch(err => console.log(err));
 
 const create = data => {
-  console.log(data);
-  Flashcards.create(data);
+  let [name, deck] = data.split(';');
+  deck = JSON.parse(deck);
+
+  const entry = {
+    name,
+    deck
+  };
+
+  return Flashcards.create(entry);
 };
 
 const read = () => {
@@ -33,8 +40,8 @@ const update = (_id, data) => {
   return query.exec();
 };
 
-const del = () => {
-  const query = Flashcards.findOneAndDelete({ id });
+const del = _id => {
+  const query = Flashcards.findOneAndDelete({ _id });
   return query.exec();
 };
 
