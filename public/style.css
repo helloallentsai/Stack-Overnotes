@@ -232,3 +232,7 @@ textarea {
 .deck-delete {
   font-size: 16px;
 }
+
+.stackoverflow-btn:hover {
+  color: #46988a;
+}

@@ -48,9 +48,8 @@ app.put('/api/deck/:id', (req, res) => {
     });
 });
 
-app.del('/api/deck/:id', (req, res) => {
+app.delete('/api/deck/:id', (req, res) => {
   const id = req.params.id;
-  console.log(id);
   db.del(id).then(data => res.status(202).send(data));
 });
 

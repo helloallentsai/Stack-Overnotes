@@ -36,6 +36,14 @@ const Flashcard = props => {
   const [fadeIn, setFadeIn] = useState(false);
   const toggleBack = () => setFadeIn(!fadeIn);
 
+  const progress = Math.floor(((original - total + 1) / original) * 100);
+
+  const [moreModal, setMoreModal] = useState(false);
+  const toggleMoreModal = () => setMoreModal(!moreModal);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+
   document.onkeydown = e => {
     switch (e.keyCode) {
       case 32:
@@ -50,20 +58,13 @@ const Flashcard = props => {
       case 13:
         if (total > 1) {
           handleCheck(idx);
+          setIsOpen(false);
         }
         break;
       default:
         break;
     }
   };
-
-  const progress = Math.floor(((original - total + 1) / original) * 100);
-
-  const [moreModal, setMoreModal] = useState(false);
-  const toggleMoreModal = () => setMoreModal(!moreModal);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
 
   if (front === 'select a deck') {
     return (
@@ -133,7 +134,7 @@ const Flashcard = props => {
           </ToastHeader>
         </Toast>
         <Collapse isOpen={isOpen}>
-          {isOpen ? <API search={front || ''} /> : ''}
+          {isOpen ? <API search={front || ''} collapse={toggle} /> : ''}
         </Collapse>
         <ButtonGroup className="buttons">
           {total > 1 ? (

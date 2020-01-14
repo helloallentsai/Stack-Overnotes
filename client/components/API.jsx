@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Toast, ListGroup, ListGroupItem, ToastHeader } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const API = ({ search }) => {
+const API = ({ search, collapse }) => {
   const [articles, setArticles] = useState([
     { title: 'loading...', link: 'http' },
     { title: 'loading...', link: 'http' },
@@ -23,7 +25,13 @@ const API = ({ search }) => {
   return (
     <Toast className="flashcard stackoverflow">
       <ToastHeader id="stackoverflow-title">
-        Related StackOverflow Articles
+        Related StackOverflow Articles{' '}
+        <FontAwesomeIcon
+          icon={faTimes}
+          onClick={() => collapse()}
+          className="delete-cross stackoverflow-btn"
+          size="xs"
+        />
       </ToastHeader>
       <ListGroup>
         {articles.map((article, idx) => (

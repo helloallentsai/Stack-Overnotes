@@ -69,7 +69,7 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <Modal isOpen={false} toggle={toggleModal}>
+      <Modal isOpen={modal} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>
           Welcome to Stack<span className="nav-overnotes">Overnotes</span>!
         </ModalHeader>
