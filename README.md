@@ -26,11 +26,10 @@ Navigate to preferred local directory and clone the github repo:
 $ git clone https://github.com/helloallentsai/Stack-Overnotes.git
 ```
 
-To seed database, transpile React components, and start server, navigate inside the directory and run the following commands:
+To transpile React components and start server, navigate inside the directory and run the following commands:
 
 ```
 $ npm install
-$ npm run db:seed
 $ npm run build
 $ npm start
 ```
@@ -41,8 +40,3 @@ $ npm start
  - NodeJS
  - MongoDB
  - Express
-
-## Related Projects
-
-  - https://github.com/hrr42-fec5/service-tom
-  - https://github.com/hrr42-fec5/service-camryn
